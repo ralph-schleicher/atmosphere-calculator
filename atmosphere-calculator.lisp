@@ -265,10 +265,14 @@ a drop-down menu widget for the unit of measure."))
     (setf (q-display-value q) value)))
 
 (defun push-display-unit (q)
-  (setf (gtk-combo-box-active (q-unit-widget q)) (car (rassoc (q-display-unit q) (q-display-units q) :test #'string=))))
+  (let* ((unit (q-display-unit q))
+	 (index (car (rassoc unit (q-display-units q) :test #'string=))))
+    (setf (gtk-combo-box-active (q-unit-widget q)) index)))
 
 (defun pull-display-unit (q)
-  (setf (q-display-unit q) (cdr (assoc (gtk-combo-box-active (q-unit-widget q)) (q-display-units q)))))
+  (let* ((index (gtk-combo-box-active (q-unit-widget q)))
+	 (unit (cdr (assoc index (q-display-units q)))))
+    (setf (q-display-unit q) unit)))
 
 (defun q-push (q &optional (value nil value-supplied-p))
   "Propagate numerical value."
