@@ -337,169 +337,94 @@ a drop-down menu widget for the unit of measure."))
       (g-signal-connect widget "changed" fun))
     q))
 
-(defclass atmosphere-calculator ()
-  ((builder
-    :initform (make-instance 'gtk-builder)
-    :accessor builder)
-   (main-window
-    :accessor main-window)
-   ;; Ambient pressure.
-   (ambient-pressure-selection
-    :accessor ambient-pressure-selection)
-   (static-pressure-input-flag
-    :accessor static-pressure-input-flag)
-   (static-pressure-input-value
-    :accessor static-pressure-input-value)
-   (static-pressure-input-unit
-    :accessor static-pressure-input-unit)
-   (static-pressure-input
-    :accessor static-pressure-input)
-   (geometric-height-input-flag
-    :accessor geometric-height-input-flag)
-   (geometric-height-input-value
-    :accessor geometric-height-input-value)
-   (geometric-height-input-unit
-    :accessor geometric-height-input-unit)
-   (geometric-height-input
-    :accessor geometric-height-input)
-   (geopotential-height-input-flag
-    :accessor geopotential-height-input-flag)
-   (geopotential-height-input-value
-    :accessor geopotential-height-input-value)
-   (geopotential-height-input-unit
-    :accessor geopotential-height-input-unit)
-   (geopotential-height-input
-    :accessor geopotential-height-input)
-   ;; Ambient temperature.
-   (ambient-temperature-selection
-    :accessor ambient-temperature-selection)
-   (static-temperature-input-flag
-    :accessor static-temperature-input-flag)
-   (static-temperature-input-value
-    :accessor static-temperature-input-value)
-   (static-temperature-input-unit
-    :accessor static-temperature-input-unit)
-   (static-temperature-input
-    :accessor static-temperature-input)
-   (temperature-offset-input-flag
-    :accessor temperature-offset-input-flag)
-   (temperature-offset-input-value
-    :accessor temperature-offset-input-value)
-   (temperature-offset-input-unit
-    :accessor temperature-offset-input-unit)
-   (temperature-offset-input
-    :accessor temperature-offset-input)
-   ;; Air speed.
-   (air-speed-selection
-    :accessor air-speed-selection)
-   (true-air-speed-input-flag
-    :accessor true-air-speed-input-flag)
-   (true-air-speed-input-value
-    :accessor true-air-speed-input-value)
-   (true-air-speed-input-unit
-    :accessor true-air-speed-input-unit)
-   (true-air-speed-input
-    :accessor true-air-speed-input)
-   (equivalent-air-speed-input-flag
-    :accessor equivalent-air-speed-input-flag)
-   (equivalent-air-speed-input-value
-    :accessor equivalent-air-speed-input-value)
-   (equivalent-air-speed-input-unit
-    :accessor equivalent-air-speed-input-unit)
-   (equivalent-air-speed-input
-    :accessor equivalent-air-speed-input)
-   (calibrated-air-speed-input-flag
-    :accessor calibrated-air-speed-input-flag)
-   (calibrated-air-speed-input-value
-    :accessor calibrated-air-speed-input-value)
-   (calibrated-air-speed-input-unit
-    :accessor calibrated-air-speed-input-unit)
-   (calibrated-air-speed-input
-    :accessor calibrated-air-speed-input)
-   (mach-number-input-flag
-    :accessor mach-number-input-flag)
-   (mach-number-input-value
-    :accessor mach-number-input-value)
-   (mach-number-input-unit
-    :accessor mach-number-input-unit)
-   (mach-number-input
-    :accessor mach-number-input)
-   ;; International standard atmosphere.
-   (static-pressure-result-value
-    :accessor static-pressure-result-value)
-   (static-pressure-result-unit
-    :accessor static-pressure-result-unit)
-   (static-pressure-result
-    :accessor static-pressure-result)
-   (geometric-height-result-value
-    :accessor geometric-height-result-value)
-   (geometric-height-result-unit
-    :accessor geometric-height-result-unit)
-   (geometric-height-result
-    :accessor geometric-height-result)
-   (geopotential-height-result-value
-    :accessor geopotential-height-result-value)
-   (geopotential-height-result-unit
-    :accessor geopotential-height-result-unit)
-   (geopotential-height-result
-    :accessor geopotential-height-result)
-   (static-temperature-result-value
-    :accessor static-temperature-result-value)
-   (static-temperature-result-unit
-    :accessor static-temperature-result-unit)
-   (static-temperature-result
-    :accessor static-temperature-result)
-   (temperature-offset-result-value
-    :accessor temperature-offset-result-value)
-   (temperature-offset-result-unit
-    :accessor temperature-offset-result-unit)
-   (temperature-offset-result
-    :accessor temperature-offset-result)
-   ;; Air properties.
-   (density-result-value
-    :accessor density-result-value)
-   (density-result-unit
-    :accessor density-result-unit)
-   (density-result
-    :accessor density-result)
-   (speed-of-sound-result-value
-    :accessor speed-of-sound-result-value)
-   (speed-of-sound-result-unit
-    :accessor speed-of-sound-result-unit)
-   (speed-of-sound-result
-    :accessor speed-of-sound-result)
-   ;; Air speeds.
-   (true-air-speed-result-value
-    :accessor true-air-speed-result-value)
-   (true-air-speed-result-unit
-    :accessor true-air-speed-result-unit)
-   (true-air-speed-result
-    :accessor true-air-speed-result)
-   (equivalent-air-speed-result-value
-    :accessor equivalent-air-speed-result-value)
-   (equivalent-air-speed-result-unit
-    :accessor equivalent-air-speed-result-unit)
-   (equivalent-air-speed-result
-    :accessor equivalent-air-speed-result)
-   (calibrated-air-speed-result-value
-    :accessor calibrated-air-speed-result-value)
-   (calibrated-air-speed-result-unit
-    :accessor calibrated-air-speed-result-unit)
-   (calibrated-air-speed-result
-    :accessor calibrated-air-speed-result)
-   (mach-number-result-value
-    :accessor mach-number-result-value)
-   (mach-number-result-unit
-    :accessor mach-number-result-unit)
-   (mach-number-result
-    :accessor mach-number-result)
-   (dynamic-pressure-result-value
-    :accessor dynamic-pressure-result-value)
-   (dynamic-pressure-result-unit
-    :accessor dynamic-pressure-result-unit)
-   (dynamic-pressure-result
-    :accessor dynamic-pressure-result)
-   ))
+(defstruct (atmosphere-calculator
+	    (:conc-name nil)
+	    (:copier nil)
+	    (:predicate nil))
+  (builder
+   (make-instance 'gtk-builder))
+  main-window
+  ;; Ambient pressure.
+  ambient-pressure-selection
+  static-pressure-input-flag
+  static-pressure-input-value
+  static-pressure-input-unit
+  static-pressure-input
+  geometric-height-input-flag
+  geometric-height-input-value
+  geometric-height-input-unit
+  geometric-height-input
+  geopotential-height-input-flag
+  geopotential-height-input-value
+  geopotential-height-input-unit
+  geopotential-height-input
+  ;; Ambient temperature.
+  ambient-temperature-selection
+  static-temperature-input-flag
+  static-temperature-input-value
+  static-temperature-input-unit
+  static-temperature-input
+  temperature-offset-input-flag
+  temperature-offset-input-value
+  temperature-offset-input-unit
+  temperature-offset-input
+  ;; Air speed.
+  air-speed-selection
+  true-air-speed-input-flag
+  true-air-speed-input-value
+  true-air-speed-input-unit
+  true-air-speed-input
+  equivalent-air-speed-input-flag
+  equivalent-air-speed-input-value
+  equivalent-air-speed-input-unit
+  equivalent-air-speed-input
+  calibrated-air-speed-input-flag
+  calibrated-air-speed-input-value
+  calibrated-air-speed-input-unit
+  calibrated-air-speed-input
+  mach-number-input-flag
+  mach-number-input-value
+  mach-number-input-unit
+  mach-number-input
+  ;; International standard atmosphere.
+  static-pressure-result-value
+  static-pressure-result-unit
+  static-pressure-result
+  geometric-height-result-value
+  geometric-height-result-unit
+  geometric-height-result
+  geopotential-height-result-value
+  geopotential-height-result-unit
+  geopotential-height-result
+  static-temperature-result-value
+  static-temperature-result-unit
+  static-temperature-result
+  temperature-offset-result-value
+  temperature-offset-result-unit
+  temperature-offset-result
+  ;; Air properties.
+  density-result-value
+  density-result-unit
+  density-result
+  speed-of-sound-result-value
+  speed-of-sound-result-unit
+  speed-of-sound-result
+  ;; Air speeds.
+  true-air-speed-result-value
+  true-air-speed-result-unit
+  true-air-speed-result
+  equivalent-air-speed-result-value
+  equivalent-air-speed-result-unit
+  equivalent-air-speed-result
+  calibrated-air-speed-result-value
+  calibrated-air-speed-result-unit
+  calibrated-air-speed-result
+  mach-number-result-value
+  mach-number-result-unit
+  mach-number-result
+  dynamic-pressure-result-value
+  dynamic-pressure-result-unit
+  dynamic-pressure-result)
 
 (define-condition invalid-input (simple-error)
   ()
@@ -645,7 +570,7 @@ a drop-down menu widget for the unit of measure."))
 (defun atmosphere-calculator ()
   (let (app)
     (within-main-loop
-      (setf app (make-instance 'atmosphere-calculator))
+      (setf app (make-atmosphere-calculator))
       ;; Create the objects of the user interface.
       (gtk-builder-add-from-file (builder app) "atmosphere-calculator.ui")
       ;; Gather widgets handles.
