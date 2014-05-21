@@ -350,6 +350,7 @@ a drop-down menu widget for the unit of measure."))
   (builder
    (make-instance 'gtk-builder))
   main-window
+  help-about
   ;; Ambient pressure.
   ambient-pressure-selection
   static-pressure-input-flag
@@ -430,7 +431,10 @@ a drop-down menu widget for the unit of measure."))
   mach-number-result
   dynamic-pressure-result-value
   dynamic-pressure-result-unit
-  dynamic-pressure-result)
+  dynamic-pressure-result
+  ;; About dialog.
+  about-dialog
+  about-close)
 
 (define-condition invalid-input (simple-error)
   ()
@@ -579,12 +583,26 @@ a drop-down menu widget for the unit of measure."))
       (setf app (make-atmosphere-calculator))
       ;; Create the objects of the user interface.
       (gtk-builder-add-from-file (builder app) "atmosphere-calculator.ui")
+      (gtk-builder-add-from-file (builder app) "atmosphere-calculator-about.ui")
       ;; Gather widgets handles.
       (iter (for slot :in (closer-mop:class-slots (class-of app)))
 	    (for slot-name = (closer-mop:slot-definition-name slot))
 	    (for name = (string-downcase (symbol-name slot-name)))
 	    (for widget = (gtk-builder-get-object (builder app) name))
 	    (when widget (setf (slot-value app slot-name) widget)))
+      ;; About dialog.
+      (g-signal-connect (about-dialog app) "delete-event"
+			(lambda (object &rest arg)
+			  (declare (ignore object arg))
+			  (gtk-widget-hide-on-delete (about-dialog app))))
+      (g-signal-connect (help-about app) "activate"
+			(lambda (object)
+			  (declare (ignore object))
+			  (gtk-widget-show-all (about-dialog app))))
+      (g-signal-connect (about-close app) "clicked"
+			(lambda (object)
+			  (declare (ignore object))
+			  (gtk-widget-hide (about-dialog app))))
       ;; Install call-backs.
       (g-signal-connect (main-window app) "destroy"
 			(lambda (object)

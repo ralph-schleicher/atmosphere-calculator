@@ -32,6 +32,40 @@
       </row>
     </data>
   </object>
+  <object class="GtkListStore" id="pressure-units">
+    <columns>
+      <!-- column-name unit -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">Pa</col>
+      </row>
+      <row>
+        <col id="0">hPa</col>
+      </row>
+      <row>
+        <col id="0">bar</col>
+      </row>
+      <row>
+        <col id="0">psi</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="ratio-units">
+    <columns>
+      <!-- column-name unit -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">1</col>
+      </row>
+      <row>
+        <col id="0">%</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkWindow" id="main-window">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Atmosphere Calculator</property>
@@ -179,7 +213,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="imagemenuitem10">
+                      <object class="GtkImageMenuItem" id="help-about">
                         <property name="label">gtk-about</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -1604,40 +1638,6 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkListStore" id="pressure-units">
-    <columns>
-      <!-- column-name unit -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">Pa</col>
-      </row>
-      <row>
-        <col id="0">hPa</col>
-      </row>
-      <row>
-        <col id="0">bar</col>
-      </row>
-      <row>
-        <col id="0">psi</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="ratio-units">
-    <columns>
-      <!-- column-name unit -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">1</col>
-      </row>
-      <row>
-        <col id="0">%</col>
-      </row>
-    </data>
   </object>
   <object class="GtkListStore" id="temperature-units">
     <columns>
