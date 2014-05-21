@@ -350,6 +350,7 @@ a drop-down menu widget for the unit of measure."))
   (builder
    (make-instance 'gtk-builder))
   main-window
+  file-quit
   help-about
   ;; Ambient pressure.
   ambient-pressure-selection
@@ -582,8 +583,8 @@ a drop-down menu widget for the unit of measure."))
     (within-main-loop
       (setf app (make-atmosphere-calculator))
       ;; Create the objects of the user interface.
-      (gtk-builder-add-from-file (builder app) "atmosphere-calculator.ui")
-      (gtk-builder-add-from-file (builder app) "atmosphere-calculator-about.ui")
+      (gtk-builder-add-from-file (builder app) "atmosphere-calculator.glade")
+      (gtk-builder-add-from-file (builder app) "atmosphere-calculator-about.glade")
       ;; Gather widgets handles.
       (iter (for slot :in (closer-mop:class-slots (class-of app)))
 	    (for slot-name = (closer-mop:slot-definition-name slot))
@@ -604,10 +605,11 @@ a drop-down menu widget for the unit of measure."))
 			  (declare (ignore object))
 			  (gtk-widget-hide (about-dialog app))))
       ;; Install call-backs.
-      (g-signal-connect (main-window app) "destroy"
-			(lambda (object)
-			  (declare (ignore object))
-			  (leave-gtk-main)))
+      (let ((quit (lambda (object)
+		    (declare (ignore object))
+		    (leave-gtk-main))))
+	(g-signal-connect (main-window app) "destroy" quit)
+	(g-signal-connect (file-quit app) "activate" quit))
       (g-signal-connect (static-pressure-input-flag app) "clicked"
 			(lambda (object)
 			  (declare (ignore object))
