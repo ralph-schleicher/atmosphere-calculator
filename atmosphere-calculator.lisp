@@ -536,7 +536,7 @@ a drop-down menu widget for the unit of measure."))
 		   (unless M
 		     (let ((c (/ 2 (- k 1)))
 			   (m (/ (- k 1) k)))
-		       (setf M (sqrt (* c (- (expt (+ (/ q pn) 1) m) 1))))))
+		       (setf M (sqrt (* c (- (expt (+ (/ q p) 1) m) 1))))))
 		   ;; Calibrated air speed.
 		   (unless CAS
 		     (let ((c (/ 2 (- k 1)))
