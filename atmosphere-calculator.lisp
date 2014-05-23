@@ -458,6 +458,7 @@ a drop-down menu widget for the unit of measure."))
     (q-push (dynamic-pressure-result app) nil)
     (handler-case
 	(progn
+	  ;; Ambient pressure.
 	  (ecase (ambient-pressure-selection app)
 	    (:static-pressure
 	     (when (setf p (q-pull (static-pressure-input app)))
@@ -473,6 +474,10 @@ a drop-down menu widget for the unit of measure."))
 		     p (iso-2533:atm H)))))
 	  (unless (and p h H)
 	    (error 'invalid-input))
+	  (q-push (static-pressure-result app) p)
+	  (q-push (geometric-height-result app) h)
+	  (q-push (geopotential-height-result app) H)
+	  ;; Ambient temperature.
 	  (ecase (ambient-temperature-selection app)
 	    (:static-temperature
 	     (when (setf t (q-pull (static-temperature-input app)))
@@ -486,6 +491,14 @@ a drop-down menu widget for the unit of measure."))
 	    (error 'invalid-input))
 	  (unless (plusp T)
 	    (error "Ambient temperature out of range (it can't get that cold)')."))
+	  (q-push (static-temperature-result app) t)
+	  (q-push (temperature-offset-result app) dT)
+	  ;; Air properties.
+	  (setf r (iso-2533:density p T))
+	  (q-push (density-result app) r)
+	  (setf a (iso-2533:speed-of-sound T))
+	  (q-push (speed-of-sound-result app) a)
+	  ;; Air speed.
 	  (let (k pn Tn rn an SMOE)
 	    ;; Ratio of specific heat capacities of air.
 	    (setf k iso-2533:ratio-of-specific-heats)
@@ -497,10 +510,6 @@ a drop-down menu widget for the unit of measure."))
 	    (setf rn iso-2533:standard-density)
 	    ;; Speed of sound at sea level in m/s.
 	    (setf an (iso-2533:speed-of-sound Tn))
-	    ;; Air density at ambient conditions in kg/m³.
-	    (setf r (iso-2533:density p T))
-	    ;; Speed of sound at ambient conditions in m/s.
-	    (setf a (iso-2533:speed-of-sound T))
 	    ;; Standard means of evaluation.
 	    (setf SMOE (/ (sqrt (/ r rn))))
 	    (ecase (air-speed-selection app)
@@ -549,22 +558,15 @@ a drop-down menu widget for the unit of measure."))
 		  (cl:t
 		   (error 'invalid-input)))
 	    (unless (<= 0 M 1)
-	      (error "Air speed out of range.")))
+	      (error "Air speed out of range."))
+	    (q-push (true-air-speed-result app) TAS)
+	    (q-push (equivalent-air-speed-result app) EAS)
+	    (q-push (calibrated-air-speed-result app) CAS)
+	    (q-push (mach-number-result app) M)
+	    (q-push (dynamic-pressure-result app) q))
 	  (values))
       (:no-error ()
-	(q-push (static-pressure-result app) p)
-	(q-push (geometric-height-result app) h)
-	(q-push (geopotential-height-result app) H)
-	(q-push (static-temperature-result app) t)
-	(q-push (temperature-offset-result app) dT)
-	(q-push (density-result app) r)
-	(q-push (speed-of-sound-result app) a)
-	(q-push (true-air-speed-result app) TAS)
-	(q-push (equivalent-air-speed-result app) EAS)
-	(q-push (calibrated-air-speed-result app) CAS)
-	(q-push (mach-number-result app) M)
-	(q-push (dynamic-pressure-result app) q)
-	))))
+	nil))))
 
 (defun plot (app)
   (declare (ignore app))
