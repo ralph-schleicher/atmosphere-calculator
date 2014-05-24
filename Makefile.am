@@ -38,7 +38,6 @@ atmosphere_calculator_SOURCES = \
 atmosphere-calculator.asd \
 atmosphere-calculator.lisp \
 atmosphere-calculator.glade \
-atmosphere-calculator-about.glade \
 atmosphere-calculator-about.png
 
 atmosphere-calculator$(EXEEXT): $(atmosphere_calculator_SOURCES)

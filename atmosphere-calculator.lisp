@@ -59,7 +59,7 @@
 ;;;; Unit Conversion
 
 ;; This table has to cover the elements of the GtkListStore objects
-;; defined in file `atmosphere-calculator.ui'.
+;; defined in file `atmosphere-calculator.glade'.
 (defvar utab
   (let* ((in 254/10000)
 	 (ft (* 12 in))
@@ -587,7 +587,6 @@ a drop-down menu widget for the unit of measure."))
       (setf app (make-atmosphere-calculator))
       ;; Create the objects of the user interface.
       (gtk-builder-add-from-file (builder app) "atmosphere-calculator.glade")
-      (gtk-builder-add-from-file (builder app) "atmosphere-calculator-about.glade")
       ;; Gather widgets handles.
       (iter (for slot :in (closer-mop:class-slots (class-of app)))
 	    (for slot-name = (closer-mop:slot-definition-name slot))
