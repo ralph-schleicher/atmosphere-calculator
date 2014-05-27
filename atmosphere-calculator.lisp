@@ -239,7 +239,12 @@ given in the target unit."
    (display-units
     :documentation "Alist of display units.  Key is the drop-down menu index, value is the unit name."
     :initform nil
-    :accessor q-display-units))
+    :accessor q-display-units)
+   (call-back
+    :documentation "Function to be called when one of the widgets is dirty."
+    :initarg :call-back
+    :initform nil
+    :accessor q-call-back))
   (:documentation
    "A quasi meta-widget to display a physical quantity, that is the
 combination of a text entry widget for the numerical value and
@@ -303,7 +308,7 @@ a drop-down menu widget for the unit of measure."))
 			(uconv (q-display-value q) (q-display-unit q) (q-unit q) (q-relative q)))))
   (q-value q))
 
-(defun make-q (app &rest init-arg)
+(defun make-q (&rest init-arg)
   (let ((q (apply #'make-instance 'q-object init-arg)))
     ;; Gather display units from the drop-down menu widget.
     (setf (q-display-units q)
@@ -328,18 +333,20 @@ a drop-down menu widget for the unit of measure."))
 			  (lambda (object)
 			    (declare (ignore object))
 			    (setf (q-value-dirty q) cl:t)))
-	(let ((fun (lambda (object &rest arg)
-		     (declare (ignore object arg))
-		     (when (q-value-dirty q)
-		       (update app)))))
-	  (g-signal-connect widget "activate" fun)
-	  (g-signal-connect widget "focus-out-event" fun))))
+	(when (q-call-back q)
+	  (let ((fun (lambda (object &rest arg)
+		       (declare (ignore object arg))
+		       (when (q-value-dirty q)
+			 (funcall (q-call-back q) q)))))
+	    (g-signal-connect widget "activate" fun)
+	    (g-signal-connect widget "focus-out-event" fun)))))
     (let ((widget (q-unit-widget q))
 	  (fun (lambda (object)
 		 (declare (ignore object))
 		 (setf (q-unit-dirty q) cl:t)
 		 (if (q-value-editable q)
-		     (update app)
+		     (when (q-call-back q)
+		       (funcall (q-call-back q) q))
 		   (q-push q)))))
       (g-signal-connect widget "changed" fun))
     q))
@@ -715,154 +722,157 @@ a drop-down menu widget for the unit of measure."))
 				(gtk-widget-sensitive (mach-number-input-value app)) cl:t
 				(gtk-widget-sensitive (mach-number-input-unit app)) cl:t)
 			  (update app)))
-      (setf (static-pressure-input app)
-	    (make-q app
-		    :tag "static pressure"
-		    :value 101325 :unit "Pa" :display-unit "hPa"
-		    :value-editable cl:t
-		    :value-widget (static-pressure-input-value app)
-		    :unit-widget (static-pressure-input-unit app))
-	    (geometric-height-input app)
-	    (make-q app
-		    :tag "geometric height"
-		    :value 0 :unit "m"
-		    :value-editable cl:t
-		    :value-widget (geometric-height-input-value app)
-		    :unit-widget (geometric-height-input-unit app))
-	    (geopotential-height-input app)
-	    (make-q app
-		    :tag "geopotential height"
-		    :value 0 :unit "m"
-		    :value-editable cl:t
-		    :value-widget (geopotential-height-input-value app)
-		    :unit-widget (geopotential-height-input-unit app))
-	    (static-temperature-input app)
-	    (make-q app
-		    :tag "static temperature"
-		    :value 15 :unit "°C"
-		    :value-editable cl:t
-		    :value-widget (static-temperature-input-value app)
-		    :unit-widget (static-temperature-input-unit app))
-	    (temperature-offset-input app)
-	    (make-q app
-		    :tag "temperature offset"
-		    :value 0 :unit "K" :relative cl:t
-		    :value-editable cl:t
-		    :value-widget (temperature-offset-input-value app)
-		    :unit-widget (temperature-offset-input-unit app))
-	    (true-air-speed-input app)
-	    (make-q app
-		    :tag "true air speed"
-		    :value 0 :unit "m/s" :display-unit "kn"
-		    :value-editable cl:t
-		    :value-widget (true-air-speed-input-value app)
-		    :unit-widget (true-air-speed-input-unit app))
-	    (equivalent-air-speed-input app)
-	    (make-q app
-		    :tag "equivalent air "
-		    :value 0 :unit "m/s" :display-unit "kn"
-		    :value-editable cl:t
-		    :value-widget (equivalent-air-speed-input-value app)
-		    :unit-widget (equivalent-air-speed-input-unit app))
-	    (calibrated-air-speed-input app)
-	    (make-q app
-		    :tag "calibrated air speed"
-		    :value 0 :unit "m/s" :display-unit "kn"
-		    :value-editable cl:t
-		    :value-widget (calibrated-air-speed-input-value app)
-		    :unit-widget (calibrated-air-speed-input-unit app))
-	    (mach-number-input app)
-	    (make-q app
-		    :tag "Mach number"
-		    :value 0 :unit "1"
-		    :value-editable cl:t
-		    :value-widget (mach-number-input-value app)
-		    :unit-widget (mach-number-input-unit app))
-	    ;; Result values.
-	    (static-pressure-result app)
-	    (make-q app
-		    :tag "static pressure"
-		    :unit "Pa" :display-unit "hPa"
-		    :value-editable nil
-		    :value-widget (static-pressure-result-value app)
-		    :unit-widget (static-pressure-result-unit app))
-	    (geometric-height-result app)
-	    (make-q app
-		    :tag "geometric height"
-		    :unit "m"
-		    :value-editable nil
-		    :value-widget (geometric-height-result-value app)
-		    :unit-widget (geometric-height-result-unit app))
-	    (geopotential-height-result app)
-	    (make-q app
-		    :tag "geopotential height"
-		    :unit "m"
-		    :value-editable nil
-		    :value-widget (geopotential-height-result-value app)
-		    :unit-widget (geopotential-height-result-unit app))
-	    (static-temperature-result app)
-	    (make-q app
-		    :tag "static temperature"
-		    :unit "°C"
-		    :value-editable nil
-		    :value-widget (static-temperature-result-value app)
-		    :unit-widget (static-temperature-result-unit app))
-	    (temperature-offset-result app)
-	    (make-q app
-		    :tag "temperature offset"
-		    :unit "K" :relative cl:t
-		    :value-editable nil
-		    :value-widget (temperature-offset-result-value app)
-		    :unit-widget (temperature-offset-result-unit app))
-	    (density-result app)
-	    (make-q app
-		    :tag "density"
-		    :unit "kg/m³"
-		    :value-editable nil
-		    :value-widget (density-result-value app)
-		    :unit-widget (density-result-unit app))
-	    (speed-of-sound-result app)
-	    (make-q app
-		    :tag "speed of sound"
-		    :unit "m/s"
-		    :value-editable nil
-		    :value-widget (speed-of-sound-result-value app)
-		    :unit-widget (speed-of-sound-result-unit app))
-	    (true-air-speed-result app)
-	    (make-q app
-		    :tag "true air speed"
-		    :unit "m/s"
-		    :value-editable nil
-		    :value-widget (true-air-speed-result-value app)
-		    :unit-widget (true-air-speed-result-unit app))
-	    (equivalent-air-speed-result app)
-	    (make-q app
-		    :tag "equivalent air speed"
-		    :unit "m/s"
-		    :value-editable nil
-		    :value-widget (equivalent-air-speed-result-value app)
-		    :unit-widget (equivalent-air-speed-result-unit app))
-	    (calibrated-air-speed-result app)
-	    (make-q app
-		    :tag "calibrated air speed"
-		    :unit "m/s"
-		    :value-editable nil
-		    :value-widget (calibrated-air-speed-result-value app)
-		    :unit-widget (calibrated-air-speed-result-unit app))
-	    (mach-number-result app)
-	    (make-q app
-		    :tag "Mach number"
-		    :unit "1"
-		    :value-editable nil
-		    :value-widget (mach-number-result-value app)
-		    :unit-widget (mach-number-result-unit app))
-	    (dynamic-pressure-result app)
-	    (make-q app
-		    :tag "dynamic pressure"
-		    :unit "Pa" :display-unit "hPa"
-		    :value-editable nil
-		    :value-widget (dynamic-pressure-result-value app)
-		    :unit-widget (dynamic-pressure-result-unit app)))
+      (let ((fun (lambda (object)
+		   (declare (ignore object))
+		   (update app))))
+	(setf (static-pressure-input app)
+	      (make-q :tag "static pressure"
+		      :value 101325 :unit "Pa" :display-unit "hPa"
+		      :value-editable cl:t
+		      :value-widget (static-pressure-input-value app)
+		      :unit-widget (static-pressure-input-unit app)
+		      :call-back fun)
+	      (geometric-height-input app)
+	      (make-q :tag "geometric height"
+		      :value 0 :unit "m"
+		      :value-editable cl:t
+		      :value-widget (geometric-height-input-value app)
+		      :unit-widget (geometric-height-input-unit app)
+		      :call-back fun)
+	      (geopotential-height-input app)
+	      (make-q :tag "geopotential height"
+		      :value 0 :unit "m"
+		      :value-editable cl:t
+		      :value-widget (geopotential-height-input-value app)
+		      :unit-widget (geopotential-height-input-unit app)
+		      :call-back fun)
+	      (static-temperature-input app)
+	      (make-q :tag "static temperature"
+		      :value 15 :unit "°C"
+		      :value-editable cl:t
+		      :value-widget (static-temperature-input-value app)
+		      :unit-widget (static-temperature-input-unit app)
+		      :call-back fun)
+	      (temperature-offset-input app)
+	      (make-q :tag "temperature offset"
+		      :value 0 :unit "K" :relative cl:t
+		      :value-editable cl:t
+		      :value-widget (temperature-offset-input-value app)
+		      :unit-widget (temperature-offset-input-unit app)
+		      :call-back fun)
+	      (true-air-speed-input app)
+	      (make-q :tag "true air speed"
+		      :value 0 :unit "m/s" :display-unit "kn"
+		      :value-editable cl:t
+		      :value-widget (true-air-speed-input-value app)
+		      :unit-widget (true-air-speed-input-unit app)
+		      :call-back fun)
+	      (equivalent-air-speed-input app)
+	      (make-q :tag "equivalent air "
+		      :value 0 :unit "m/s" :display-unit "kn"
+		      :value-editable cl:t
+		      :value-widget (equivalent-air-speed-input-value app)
+		      :unit-widget (equivalent-air-speed-input-unit app)
+		      :call-back fun)
+	      (calibrated-air-speed-input app)
+	      (make-q :tag "calibrated air speed"
+		      :value 0 :unit "m/s" :display-unit "kn"
+		      :value-editable cl:t
+		      :value-widget (calibrated-air-speed-input-value app)
+		      :unit-widget (calibrated-air-speed-input-unit app)
+		      :call-back fun)
+	      (mach-number-input app)
+	      (make-q :tag "Mach number"
+		      :value 0 :unit "1"
+		      :value-editable cl:t
+		      :value-widget (mach-number-input-value app)
+		      :unit-widget (mach-number-input-unit app)
+		      :call-back fun)
+	      ;; Result values.
+	      (static-pressure-result app)
+	      (make-q :tag "static pressure"
+		      :unit "Pa" :display-unit "hPa"
+		      :value-editable nil
+		      :value-widget (static-pressure-result-value app)
+		      :unit-widget (static-pressure-result-unit app)
+		      :call-back fun)
+	      (geometric-height-result app)
+	      (make-q :tag "geometric height"
+		      :unit "m"
+		      :value-editable nil
+		      :value-widget (geometric-height-result-value app)
+		      :unit-widget (geometric-height-result-unit app)
+		      :call-back fun)
+	      (geopotential-height-result app)
+	      (make-q :tag "geopotential height"
+		      :unit "m"
+		      :value-editable nil
+		      :value-widget (geopotential-height-result-value app)
+		      :unit-widget (geopotential-height-result-unit app)
+		      :call-back fun)
+	      (static-temperature-result app)
+	      (make-q :tag "static temperature"
+		      :unit "°C"
+		      :value-editable nil
+		      :value-widget (static-temperature-result-value app)
+		      :unit-widget (static-temperature-result-unit app)
+		      :call-back fun)
+	      (temperature-offset-result app)
+	      (make-q :tag "temperature offset"
+		      :unit "K" :relative cl:t
+		      :value-editable nil
+		      :value-widget (temperature-offset-result-value app)
+		      :unit-widget (temperature-offset-result-unit app)
+		      :call-back fun)
+	      (density-result app)
+	      (make-q :tag "density"
+		      :unit "kg/m³"
+		      :value-editable nil
+		      :value-widget (density-result-value app)
+		      :unit-widget (density-result-unit app)
+		      :call-back fun)
+	      (speed-of-sound-result app)
+	      (make-q :tag "speed of sound"
+		      :unit "m/s"
+		      :value-editable nil
+		      :value-widget (speed-of-sound-result-value app)
+		      :unit-widget (speed-of-sound-result-unit app)
+		      :call-back fun)
+	      (true-air-speed-result app)
+	      (make-q :tag "true air speed"
+		      :unit "m/s"
+		      :value-editable nil
+		      :value-widget (true-air-speed-result-value app)
+		      :unit-widget (true-air-speed-result-unit app)
+		      :call-back fun)
+	      (equivalent-air-speed-result app)
+	      (make-q :tag "equivalent air speed"
+		      :unit "m/s"
+		      :value-editable nil
+		      :value-widget (equivalent-air-speed-result-value app)
+		      :unit-widget (equivalent-air-speed-result-unit app)
+		      :call-back fun)
+	      (calibrated-air-speed-result app)
+	      (make-q :tag "calibrated air speed"
+		      :unit "m/s"
+		      :value-editable nil
+		      :value-widget (calibrated-air-speed-result-value app)
+		      :unit-widget (calibrated-air-speed-result-unit app)
+		      :call-back fun)
+	      (mach-number-result app)
+	      (make-q :tag "Mach number"
+		      :unit "1"
+		      :value-editable nil
+		      :value-widget (mach-number-result-value app)
+		      :unit-widget (mach-number-result-unit app)
+		      :call-back fun)
+	      (dynamic-pressure-result app)
+	      (make-q :tag "dynamic pressure"
+		      :unit "Pa" :display-unit "hPa"
+		      :value-editable nil
+		      :value-widget (dynamic-pressure-result-value app)
+		      :unit-widget (dynamic-pressure-result-unit app)
+		      :call-back fun)))
       ;; Fire the radio-button call-backs.
       (gtk-button-clicked (geometric-height-input-flag app))
       (gtk-button-clicked (temperature-offset-input-flag app))
