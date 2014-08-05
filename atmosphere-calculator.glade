@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <requires lib="gtk+" version="3.0"/>
   <object class="GtkDialog" id="about-dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -95,7 +96,6 @@
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">0</property>
                                 <property name="width">2</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -110,8 +110,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -127,8 +125,6 @@
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -143,8 +139,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">2</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -160,8 +154,6 @@
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">2</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -176,8 +168,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">3</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -193,8 +183,6 @@
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">3</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -210,7 +198,6 @@
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">4</property>
                                 <property name="width">2</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                           </object>
@@ -272,7 +259,10 @@
             <property name="label" translatable="yes">The Earth's atmospheric layers image is a cut out of photo ISS028-E-20072 provided by the Earth Science and Remote Sensing Unit, NASA Johnson Space Center.</property>
             <property name="use_markup">True</property>
             <property name="wrap">True</property>
+            <property name="wrap_mode">char</property>
             <property name="selectable">True</property>
+            <property name="width_chars">72</property>
+            <property name="max_width_chars">72</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -314,6 +304,86 @@
     <data>
       <row>
         <col id="0">kg/m³</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="pressure-units">
+    <columns>
+      <!-- column-name unit -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">Pa</col>
+      </row>
+      <row>
+        <col id="0">hPa</col>
+      </row>
+      <row>
+        <col id="0">bar</col>
+      </row>
+      <row>
+        <col id="0">psi</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="ratio-units">
+    <columns>
+      <!-- column-name unit -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">1</col>
+      </row>
+      <row>
+        <col id="0">%</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="temperature-units">
+    <columns>
+      <!-- column-name unit -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">K</col>
+      </row>
+      <row>
+        <col id="0">°C</col>
+      </row>
+      <row>
+        <col id="0">°F</col>
+      </row>
+      <row>
+        <col id="0">°R</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="velocity-units">
+    <columns>
+      <!-- column-name unit -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">m/s</col>
+      </row>
+      <row>
+        <col id="0">km/h</col>
+      </row>
+      <row>
+        <col id="0">in/s</col>
+      </row>
+      <row>
+        <col id="0">ft/s</col>
+      </row>
+      <row>
+        <col id="0">mi/h</col>
+      </row>
+      <row>
+        <col id="0">kn</col>
       </row>
     </data>
   </object>
@@ -474,8 +544,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -484,13 +552,10 @@
                                 <property name="can_focus">True</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="input_purpose">number</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -510,8 +575,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -529,8 +592,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -539,14 +600,10 @@
                                 <property name="can_focus">True</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
-                                <property name="input_purpose">number</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -565,8 +622,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -584,8 +639,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">2</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -594,14 +647,10 @@
                                 <property name="can_focus">True</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
-                                <property name="input_purpose">number</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">2</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -620,8 +669,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">2</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                           </object>
@@ -677,8 +724,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -687,14 +732,10 @@
                                 <property name="can_focus">True</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
-                                <property name="input_purpose">number</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -714,8 +755,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -733,8 +772,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -743,14 +780,10 @@
                                 <property name="can_focus">True</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
-                                <property name="input_purpose">number</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -769,8 +802,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                           </object>
@@ -823,8 +854,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -834,13 +863,10 @@
                                 <property name="editable">False</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -860,8 +886,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -875,8 +899,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -886,13 +908,10 @@
                                 <property name="editable">False</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -911,8 +930,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -926,8 +943,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">2</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -937,13 +952,10 @@
                                 <property name="editable">False</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">2</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -962,8 +974,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">2</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -977,8 +987,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">3</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -988,13 +996,10 @@
                                 <property name="editable">False</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">3</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1013,8 +1018,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">3</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1028,8 +1031,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">4</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1039,13 +1040,10 @@
                                 <property name="editable">False</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">4</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1064,8 +1062,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">4</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                           </object>
@@ -1118,8 +1114,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1129,13 +1123,10 @@
                                 <property name="editable">False</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1155,8 +1146,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1170,8 +1159,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1181,13 +1168,10 @@
                                 <property name="editable">False</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1206,8 +1190,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                           </object>
@@ -1276,8 +1258,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1287,14 +1267,10 @@
                                 <property name="invisible_char">●</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
-                                <property name="input_purpose">number</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1314,8 +1290,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1332,8 +1306,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1343,14 +1315,10 @@
                                 <property name="invisible_char">●</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
-                                <property name="input_purpose">number</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1369,8 +1337,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1387,8 +1353,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">2</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1398,14 +1362,10 @@
                                 <property name="invisible_char">●</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
-                                <property name="input_purpose">number</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">2</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1424,8 +1384,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">2</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1442,8 +1400,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">3</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1453,14 +1409,10 @@
                                 <property name="invisible_char">●</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
-                                <property name="input_purpose">number</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">3</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1479,8 +1431,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">3</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                           </object>
@@ -1533,8 +1483,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1545,13 +1493,10 @@
                                 <property name="invisible_char">●</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1571,8 +1516,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">0</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1586,8 +1529,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1598,13 +1539,10 @@
                                 <property name="invisible_char">●</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1623,8 +1561,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">1</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1638,8 +1574,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">2</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1650,13 +1584,10 @@
                                 <property name="invisible_char">●</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">2</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1675,8 +1606,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">2</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1690,8 +1619,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">3</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1702,13 +1629,10 @@
                                 <property name="invisible_char">●</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">3</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1727,8 +1651,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">3</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1742,8 +1664,6 @@
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">4</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1754,13 +1674,10 @@
                                 <property name="invisible_char">●</property>
                                 <property name="width_chars">12</property>
                                 <property name="xalign">1</property>
-                                <property name="invisible_char_set">True</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">4</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                             <child>
@@ -1779,8 +1696,6 @@
                               <packing>
                                 <property name="left_attach">2</property>
                                 <property name="top_attach">4</property>
-                                <property name="width">1</property>
-                                <property name="height">1</property>
                               </packing>
                             </child>
                           </object>
@@ -1831,85 +1746,5 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkListStore" id="pressure-units">
-    <columns>
-      <!-- column-name unit -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">Pa</col>
-      </row>
-      <row>
-        <col id="0">hPa</col>
-      </row>
-      <row>
-        <col id="0">bar</col>
-      </row>
-      <row>
-        <col id="0">psi</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="ratio-units">
-    <columns>
-      <!-- column-name unit -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">1</col>
-      </row>
-      <row>
-        <col id="0">%</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="temperature-units">
-    <columns>
-      <!-- column-name unit -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">K</col>
-      </row>
-      <row>
-        <col id="0">°C</col>
-      </row>
-      <row>
-        <col id="0">°F</col>
-      </row>
-      <row>
-        <col id="0">°R</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="velocity-units">
-    <columns>
-      <!-- column-name unit -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">m/s</col>
-      </row>
-      <row>
-        <col id="0">km/h</col>
-      </row>
-      <row>
-        <col id="0">in/s</col>
-      </row>
-      <row>
-        <col id="0">ft/s</col>
-      </row>
-      <row>
-        <col id="0">mi/h</col>
-      </row>
-      <row>
-        <col id="0">kn</col>
-      </row>
-    </data>
   </object>
 </interface>
