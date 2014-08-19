@@ -33,17 +33,6 @@
 
 ;;; Code:
 
-(in-package :common-lisp-user)
-
-(defpackage :atmosphere-calculator
-  (:use :common-lisp
-	:iterate
-	:named-readtables
-	:gtk :gobject
-	:rs-cll)
-  (:shadow #:t)
-  (:documentation "Calculate ambient conditions and air speeds."))
-
 (in-package :atmosphere-calculator)
 
 (eval-when (:compile-toplevel :load-toplevel :execute)

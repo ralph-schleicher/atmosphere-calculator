@@ -1,4 +1,4 @@
-;;; atmosphere-calculator.asd --- ASDF system definition.
+;;; package.lisp --- package definition.
 
 ;; Copyright (C) 2014 Ralph Schleicher
 
@@ -35,18 +35,13 @@
 
 (in-package :common-lisp-user)
 
-(asdf:defsystem :atmosphere-calculator
-  :description "Calculate ambient conditions and air speeds."
-  :author "Ralph Schleicher <rs@ralph-schleicher.de>"
-  :license "Modified BSD License"
-  :version "1.0"
-  :depends-on (:iterate
-	       :closer-mop
-	       :named-readtables
-	       :cl-cffi-gtk
-	       :rs-cll :iso-2533)
-  :serial t
-  :components ((:file "package")
-	       (:file "atmosphere-calculator")))
+(defpackage :atmosphere-calculator
+  (:use :common-lisp
+	:iterate
+	:named-readtables
+	:gtk :gobject
+	:rs-cll)
+  (:shadow #:t)
+  (:documentation "Calculate ambient conditions and air speeds."))
 
-;;; atmosphere-calculator.asd ends here
+;;; package.lisp ends here

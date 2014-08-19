@@ -37,6 +37,7 @@ bin_PROGRAMS = atmosphere-calculator
 
 atmosphere_calculator_SOURCES = \
 atmosphere-calculator.asd \
+package.lisp \
 atmosphere-calculator.lisp \
 atmosphere-calculator.glade \
 atmosphere-calculator-about.png
