@@ -42,7 +42,11 @@ atmosphere-calculator.lisp \
 atmosphere-calculator.glade \
 atmosphere-calculator-about.png
 
-atmosphere-calculator$(EXEEXT): $(atmosphere_calculator_SOURCES)
+EXTRA_DIST = config.lisp.in
+BUILT_SOURCES = config.lisp
+CLEANFILES = config.lisp
+
+atmosphere-calculator$(EXEEXT): $(atmosphere_calculator_SOURCES) config.lisp
 	$(BUILDAPP) \
 	--asdf-tree $(srcdir) \
 	--load-system atmosphere-calculator \
@@ -50,5 +54,11 @@ atmosphere-calculator$(EXEEXT): $(atmosphere_calculator_SOURCES)
 	--compress-core \
 	--output $@ \
 	|| rm -f $@
+
+config.lisp: $(srcdir)/config.lisp.in
+	sed \
+	-e 's|[@]datadir[@]|$(datadir)|g' \
+	$(srcdir)/config.lisp.in > $@~ \
+	&& mv $@~ $@
 
 ## Makefile.am ends here

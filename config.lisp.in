@@ -1,4 +1,4 @@
-;;; atmosphere-calculator.asd --- ASDF system definition.
+;;; config.lisp --- configuration variables.
 
 ;; Copyright (C) 2014 Ralph Schleicher
 
@@ -33,22 +33,12 @@
 
 ;;; Code:
 
-(in-package :common-lisp-user)
+(in-package :atmosphere-calculator)
 
-(asdf:defsystem :atmosphere-calculator
-  :description "Calculate ambient conditions and air speeds."
-  :author "Ralph Schleicher <rs@ralph-schleicher.de>"
-  :license "Modified BSD License"
-  :version "1.0"
-  :depends-on (:iterate
-	       :closer-mop
-	       :named-readtables
-	       :cl-fad
-	       :cl-cffi-gtk
-	       :rs-cll :iso-2533)
-  :serial t
-  :components ((:file "package")
-	       (:file "config")
-	       (:file "atmosphere-calculator")))
+(defvar *application-data-directory*
+  (cl-fad:merge-pathnames-as-directory
+   (cl-fad:pathname-as-directory "@datadir@")
+   (cl-fad:pathname-as-directory "atmosphere-calculator"))
+  "Installation directory for application data.")
 
-;;; atmosphere-calculator.asd ends here
+;;; config.lisp ends here
