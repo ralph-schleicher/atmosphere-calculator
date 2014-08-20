@@ -578,12 +578,20 @@ a drop-down menu widget for the unit of measure."))
     (error (c)
       (format nil "Error: ~S~%" c))))
 
+(defun application-data (name)
+  "Return the file name of application data NAME as a string."
+  (namestring
+   (or (when *application-data-directory*
+	 (probe-file (make-pathname :name name :defaults *application-data-directory*)))
+       (probe-file (make-pathname :name name :defaults (get-working-directory)))
+       (error 'file-error :pathname app-data))))
+
 (defun atmosphere-calculator ()
   (let (app)
     (within-main-loop
       (setf app (make-atmosphere-calculator))
       ;; Create the objects of the user interface.
-      (gtk-builder-add-from-file (builder app) "atmosphere-calculator.glade")
+      (gtk-builder-add-from-file (builder app) (application-data "atmosphere-calculator.glade"))
       ;; Gather widgets handles.
       (iter (for slot :in (closer-mop:class-slots (class-of app)))
 	    (for slot-name = (closer-mop:slot-definition-name slot))
