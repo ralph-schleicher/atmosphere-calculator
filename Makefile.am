@@ -35,6 +35,10 @@
 
 bin_PROGRAMS = atmosphere-calculator
 
+pkgdata_DATA = \
+atmosphere-calculator.glade \
+atmosphere-calculator-about.png
+
 atmosphere_calculator_SOURCES = \
 atmosphere-calculator.asd \
 package.lisp \
@@ -57,7 +61,7 @@ atmosphere-calculator$(EXEEXT): $(atmosphere_calculator_SOURCES) config.lisp
 
 config.lisp: $(srcdir)/config.lisp.in
 	sed \
-	-e 's|[@]datadir[@]|$(datadir)|g' \
+	-e 's|[@]pkgdatadir[@]|$(pkgdatadir)|g' \
 	$(srcdir)/config.lisp.in > $@~ \
 	&& mv $@~ $@
 
