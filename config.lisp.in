@@ -36,9 +36,7 @@
 (in-package :atmosphere-calculator)
 
 (defvar *application-data-directory*
-  (cl-fad:merge-pathnames-as-directory
-   (cl-fad:pathname-as-directory "@datadir@")
-   (cl-fad:pathname-as-directory "atmosphere-calculator"))
+  (cl-fad:pathname-as-directory "@pkgdatadir@")
   "Installation directory for application data.")
 
 ;;; config.lisp ends here
