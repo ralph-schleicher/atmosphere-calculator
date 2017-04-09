@@ -584,7 +584,7 @@ a drop-down menu widget for the unit of measure."))
    (or (when *application-data-directory*
 	 (probe-file (make-pathname :name name :defaults *application-data-directory*)))
        (probe-file (make-pathname :name name :defaults (get-working-directory)))
-       (error 'file-error :pathname app-data))))
+       (error 'file-error :pathname name))))
 
 (defun atmosphere-calculator ()
   (let (app)
