@@ -513,10 +513,10 @@ a drop-down menu widget for the unit of measure."))
 	    (ecase (air-speed-selection app)
 	      (:true-air-speed
 	       (when (setf TAS (q-pull (true-air-speed-input app)))
-		 (setf EAS  (/ TAS SMOE))))
+		 (setf EAS (/ TAS SMOE))))
 	      (:equivalent-air-speed
 	       (when (setf EAS (q-pull (equivalent-air-speed-input app)))
-		 (setf TAS  (* EAS SMOE))))
+		 (setf TAS (* EAS SMOE))))
 	      (:calibrated-air-speed
 	       (setf CAS (q-pull (calibrated-air-speed-input app))))
 	      (:mach-number
