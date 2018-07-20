@@ -41,6 +41,7 @@
   :license "Modified BSD License"
   :version "1.0"
   :depends-on (:uiop
+	       #+sbcl :sb-posix ;for buildapp
 	       :iterate
 	       :closer-mop
 	       :named-readtables
