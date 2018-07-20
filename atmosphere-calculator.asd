@@ -40,10 +40,10 @@
   :author "Ralph Schleicher <rs@ralph-schleicher.de>"
   :license "Modified BSD License"
   :version "1.0"
-  :depends-on (:iterate
+  :depends-on (:uiop
+	       :iterate
 	       :closer-mop
 	       :named-readtables
-	       :cl-fad
 	       :cl-cffi-gtk
 	       :rs-cll :iso-2533)
   :serial t
