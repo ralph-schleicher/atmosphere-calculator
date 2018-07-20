@@ -258,7 +258,6 @@
             <property name="label" translatable="yes">The Earth's atmospheric layers image is a cut out of photo ISS028-E-20072 provided by the Earth Science and Remote Sensing Unit, NASA Johnson Space Center.</property>
             <property name="use_markup">True</property>
             <property name="wrap">True</property>
-            <property name="wrap_mode">char</property>
             <property name="selectable">True</property>
             <property name="width_chars">72</property>
             <property name="max_width_chars">72</property>
